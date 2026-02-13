@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportHub.Core", "SupportHub.Core\SupportHub.Core.csproj", "{0C65C4E9-B505-4707-868D-7DC20D1AB68D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportHub.WPF", "SupportHub.WPF\SupportHub.WPF.csproj", "{91140EE1-03AD-4D3D-9741-EBFC4E2BC17A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportHub.Data", "SupportHub.Data\SupportHub.Data.csproj", "{7A659662-0A65-4BE8-8A84-CB8D4C5FEF9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportHub.Test", "SupportHub.Test\SupportHub.Test.csproj", "{EA3D2777-A145-42C5-9006-346CBDF77ABB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C65C4E9-B505-4707-868D-7DC20D1AB68D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C65C4E9-B505-4707-868D-7DC20D1AB68D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C65C4E9-B505-4707-868D-7DC20D1AB68D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C65C4E9-B505-4707-868D-7DC20D1AB68D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91140EE1-03AD-4D3D-9741-EBFC4E2BC17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91140EE1-03AD-4D3D-9741-EBFC4E2BC17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91140EE1-03AD-4D3D-9741-EBFC4E2BC17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91140EE1-03AD-4D3D-9741-EBFC4E2BC17A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A659662-0A65-4BE8-8A84-CB8D4C5FEF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A659662-0A65-4BE8-8A84-CB8D4C5FEF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A659662-0A65-4BE8-8A84-CB8D4C5FEF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A659662-0A65-4BE8-8A84-CB8D4C5FEF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA3D2777-A145-42C5-9006-346CBDF77ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA3D2777-A145-42C5-9006-346CBDF77ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA3D2777-A145-42C5-9006-346CBDF77ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA3D2777-A145-42C5-9006-346CBDF77ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
