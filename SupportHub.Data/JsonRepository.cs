@@ -16,15 +16,15 @@ public class JsonRepository<T> : IRepository<T> where T : DomainModel
         // Console.WriteLine(_filePath);
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        var stringJson = await File.ReadAllTextAsync(_filePath);
+        var stringJson = await File.ReadAllTextAsync(_filePath, cancellationToken);
         return JsonSerializer.Deserialize<List<T>>(stringJson) ?? new List<T>();
     }
     
-    public async Task SaveAsync(List<T> items)
+    public async Task SaveAsync(List<T> items,  CancellationToken cancellationToken = default)
     {
         var stringJson = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
-        await File.WriteAllTextAsync(_filePath, stringJson);
+        await File.WriteAllTextAsync(_filePath, stringJson,  cancellationToken);
     }
 }

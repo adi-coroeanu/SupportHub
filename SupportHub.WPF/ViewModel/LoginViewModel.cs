@@ -10,11 +10,12 @@ namespace SupportHub.WPF.ViewModel;
 public partial class LoginViewModel : ObservableObject
 {
     private readonly INavigationService _navigationService;
-    private readonly Window _window;
+    private readonly ILoginService _loginService;
     
-    public LoginViewModel(INavigationService navigationService)
+    public LoginViewModel(INavigationService navigationService, ILoginService loginService)
     {
-        _navigationService = navigationService;
+            _navigationService = navigationService;
+            _loginService = loginService;
     }
     
     [ObservableProperty]
@@ -24,18 +25,25 @@ public partial class LoginViewModel : ObservableObject
     private string? _noAccountText;
 
     [RelayCommand]
-    private void Login(object parameter)
+    private async Task Login(object parameter)
     {
         if (parameter is PasswordBox passwordBox)
         {
-            var password = passwordBox.Password;
-            if (Username == "admin" && password == "admin")
+            if (await _loginService.Login(Username, passwordBox.Password))
             {
-                _navigationService.OpenWindow<AdminWindow>();
+                if (_loginService.LoggedInUser?.Role == "Admin")
+                    _navigationService.OpenWindow<AdminWindow>();
+                
+                else
+                    _navigationService.OpenWindow<ClientWindow>();
+                
                 _navigationService.CloseWindow<LoginWindow>();
             }
+            
+            Username = string.Empty;
+            passwordBox.Password = string.Empty;
+            NoAccountText = "Username or password is incorrect.";
         }
-        NoAccountText = "Username or password is incorrect.";
     }
 
     [RelayCommand]
