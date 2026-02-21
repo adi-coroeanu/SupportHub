@@ -1,0 +1,6 @@
+{
+  "AdminCodesWorkerSettings": {
+    "ExpirationTimeMinutes": 1,
+    "RefreshingTimeMinutes": 1
+  }
+}

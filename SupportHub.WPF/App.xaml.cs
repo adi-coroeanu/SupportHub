@@ -12,6 +12,7 @@ using SupportHub.WPF.Convertors;
 using SupportHub.WPF.ViewModel;
 using SupportHub.WPF.Services;
 using SupportHub.WPF.View;
+using SupportHub.WPF.Workers;
 
 namespace SupportHub.WPF;
 
@@ -33,12 +34,14 @@ public partial class App : Application
                 //ViewModels
                 services.AddTransient<LoginViewModel>();
                 services.AddTransient<SignupViewModel>();
+                services.AddTransient<AdminViewModel>();
                 
                 //Models
                 services.AddSingleton<INavigationService, NavigationSevice>();
                 services.AddTransient<ILoginService, LoginService>();
                 services.AddTransient<ISignupService, SignupService>();
                 services.AddSingleton<IDialogService, DialogService>();
+                services.AddSingleton<IAdminCodeGeneratorService, AdminCodeGeneratorService>();
                 
                 //Data
                 services.AddSingleton<IRepository<User>, JsonRepository<User>>();
@@ -47,6 +50,9 @@ public partial class App : Application
                 
                 //Converters
                 services.AddSingleton<IMultiValueConverter, ToArrayConverter>();
+                
+                //Workers
+                services.AddHostedService<AdminCodesWorker>();
             })
             .Build();
     }

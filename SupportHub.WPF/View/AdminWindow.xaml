@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="AdminWindow" Height="450" Width="800">
     <Grid>
-        
+        <!-- Test -->
+        <StackPanel> 
+            <TextBlock Text="{Binding CodeText}"/>
+            <Button Content="Generate Code" Command="{Binding GenerateAdminCodeCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>
