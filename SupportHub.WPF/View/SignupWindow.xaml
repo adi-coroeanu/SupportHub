@@ -5,6 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:convertors="clr-namespace:SupportHub.WPF.Convertors"
         mc:Ignorable="d"
+        xmlns:viewmodels="clr-namespace:SupportHub.WPF.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodels:SignupViewModel, IsDesignTimeCreatable=False}"
         Title="Signup" Height="450" Width="500">
     <Window.Resources>
         <convertors:ToArrayConverter x:Key="ToArrayConverter"/>

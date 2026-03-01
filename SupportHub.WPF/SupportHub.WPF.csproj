@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsetings.json">
+      <None Update="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
@@ -30,6 +30,10 @@
     <ItemGroup>
         <ProjectReference Include="../SupportHub.Core/SupportHub.Core.csproj" />
         <ProjectReference Include="../SupportHub.Data/SupportHub.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ViewModel\Mocks\" />
     </ItemGroup>
 
 </Project>

@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewmodels="clr-namespace:SupportHub.WPF.ViewModel"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel, IsDesignTimeCreatable=False}"
         Title="Login" Height="450" Width="500">
     <Grid Background="LightGray">
         <Border CornerRadius="10" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="200" MinWidth="300" Padding="25">

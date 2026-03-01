@@ -20,7 +20,6 @@ public class SignupService : ISignupService
             return false;
         
         var users =  await _usersRepository.GetAllAsync(cancellationToken);
-        Console.WriteLine(users.Any(u => u.Username == username));
 
         return users.Any(u => u.Username == username);
     }

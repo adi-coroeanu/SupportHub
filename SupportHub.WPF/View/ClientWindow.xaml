@@ -3,10 +3,78 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:SupportHub.WPF.View"
+        xmlns:viewmodels="clr-namespace:SupportHub.WPF.ViewModel"
+        xmlns:models="clr-namespace:SupportHub.Core.Models;assembly=SupportHub.Core"
         mc:Ignorable="d"
-        Title="Client" Height="450" Width="800">
+        d:DataContext="{d:DesignInstance Type=viewmodels:ClientViewModel, IsDesignTimeCreatable=True}"
+        Title="Client" Height="500" Width="800">
     <Grid>
-        
+        <StackPanel>
+            <Grid Margin="15 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" FontSize="20" FontWeight="Heavy" Text="{Binding ActiveUsername, StringFormat='Welcome back, {0}'}"/>
+                <Button Grid.Column="1" Content="Logout" Command="{Binding LogoutCommand}" Padding="10"/>
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Make a new ticket"/>
+                    <Border Background="LightGray" Margin="30" CornerRadius="10" Padding="10">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Type of problem"/>
+                                <ComboBox SelectedIndex="0" Margin="20 0 0 0">
+                                    <ComboBoxItem Content="Internet"/>
+                                    <ComboBoxItem Content="Hardware"/>
+                                    <ComboBoxItem Content="Security"/>
+                                </ComboBox>
+                            </StackPanel>
+                                <TextBlock Text="Describe the problem"/>
+                            <TextBox Text="{Binding ProblemText, UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="500"
+                                     MinHeight="50"
+                                     Padding="5"
+                                     TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding ProblemTextLength, StringFormat='{}{0}/500'}"
+                                       HorizontalAlignment="Right"/>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton/>
+                                <TextBlock Text="I consent to the collection of technical diagnostics."/>
+                            </StackPanel>
+                            <Button Content="Send the ticket" Padding="10" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Tickets History"/>
+                    <TextBlock Text="{Binding DeleteTicketHistory, StringFormat='Last {0} days'}"/>
+                    <ListBox Background="LightGray" Height="360" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket}">
+                        <ListBox.ItemTemplate >
+                            <DataTemplate>
+                                
+                                <Border d:DataContext="{d:DesignInstance Type=models:Ticket, IsDesignTimeCreatable=True}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Type, StringFormat='Type: {0}'}"></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                                
+                                
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    
+                </StackPanel>
+            </Grid>
+            
+        </StackPanel>
     </Grid>
 </Window>
