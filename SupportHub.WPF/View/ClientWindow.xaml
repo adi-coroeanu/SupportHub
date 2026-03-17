@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:SupportHub.WPF.ViewModel"
         xmlns:models="clr-namespace:SupportHub.Core.Models;assembly=SupportHub.Core"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=viewmodels:ClientViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance Type=viewmodels:ClientViewModel, IsDesignTimeCreatable=False}"
         Title="Client" Height="500" Width="800">
     <Grid>
         <StackPanel>
@@ -32,7 +32,7 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Type of problem"/>
-                                <ComboBox SelectedIndex="0" Margin="20 0 0 0">
+                                <ComboBox SelectedItem="{Binding TypeProblem}" SelectedIndex="0" Margin="20 0 0 0">
                                     <ComboBoxItem Content="Internet"/>
                                     <ComboBoxItem Content="Hardware"/>
                                     <ComboBoxItem Content="Security"/>
@@ -50,28 +50,89 @@
                                 <RadioButton/>
                                 <TextBlock Text="I consent to the collection of technical diagnostics."/>
                             </StackPanel>
-                            <Button Content="Send the ticket" Padding="10" HorizontalAlignment="Center"/>
+                            <Button Command="{Binding AddTicketCommand}" Content="Send the ticket" Padding="10" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="Tickets History"/>
                     <TextBlock Text="{Binding DeleteTicketHistory, StringFormat='Last {0} days'}"/>
-                    <ListBox Background="LightGray" Height="360" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket}">
-                        <ListBox.ItemTemplate >
+                    <ListBox Background="LightGray" 
+                             Height="360" 
+                             ItemsSource="{Binding ClientTickets}" 
+                             SelectedItem="{Binding SelectedTicket}" 
+                             d:ItemsSource="{d:SampleData ItemCount=20}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Margin" Value="0 5 0 0"/>
+                            </Style>
+
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
-                                
-                                <Border d:DataContext="{d:DesignInstance Type=models:Ticket, IsDesignTimeCreatable=True}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Type, StringFormat='Type: {0}'}"></TextBlock>
-                                    </StackPanel>
-                                </Border>
-                                
-                                
+                                <StackPanel>
+
+                                    <Border BorderBrush="Black" BorderThickness="0.2" Background="White" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="1.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="35"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="0 0 0.5 0" Padding="5 0 0 0">
+                                                <TextBlock Text="{Binding Type, StringFormat='Type: {0}'}" VerticalAlignment="Center" FontSize="10"/>
+                                            </Border>
+                                            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 0 0.5 0">
+                                                <TextBlock Text="{Binding DateCreated, StringFormat='Date created: {0:dd.mm.yyyy HH:mm}'}" VerticalAlignment="Center" FontSize="10" TextWrapping="Wrap"/>
+                                            </Border>
+                                            <Border Grid.Column="2">
+                                                <TextBlock Text="{Binding Status, StringFormat='Status: {0}'}" VerticalAlignment="Center" FontSize="10"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="HiddenDetails" BorderBrush="Black" BorderThickness="0.2" Background="White" Visibility="Collapsed">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0" Text="{Binding AdminId, StringFormat='Operated by: {0}', TargetNullValue='Operated by: -'}"/>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition MaxHeight="100"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Column="0" Text="Problem:"/>
+                                                <TextBox Grid.Column="1" Text="{Binding ProblemDescription}" TextWrapping="Wrap" IsReadOnly="True"/>
+                                            </Grid>
+                                            <TextBlock Grid.Row="2" Text="{Binding DateFinished, StringFormat='Date finished: {0:dd.mm.yyyy HH:mm}', TargetNullValue='Date finished: Not finished'}"/>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                        <Setter TargetName="HiddenDetails" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    
+
                 </StackPanel>
             </Grid>
             

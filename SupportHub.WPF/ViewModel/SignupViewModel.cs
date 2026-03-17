@@ -46,7 +46,7 @@ public partial class SignupViewModel : ObservableObject
             if (await _signupService.Signup(Username, password, repassword, Email))
             {
                 _dialogService.ShowMessage("Signup successful");
-                _navigationService.OpenWindow<LoginWindow>();
+                await _navigationService.OpenWindow<LoginWindow>();
                 _navigationService.CloseWindow<SignupWindow>();
             }
             else

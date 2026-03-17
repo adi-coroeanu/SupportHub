@@ -22,14 +22,18 @@ public class AdminCodesWorker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            var codes = await _adminCodesRepository.GetAllAsync(stoppingToken);
-            var expiredCodes = codes.Where(c => (DateTime.Now-c.DateCreated).TotalMinutes >= _config.CurrentValue.ExpirationTimeMinutes).ToList();
+            try
+            {
+                var codes = await _adminCodesRepository.GetAllAsync(stoppingToken);
+                var expiredCodes = codes.Where(c => (DateTime.Now-c.DateCreated).TotalMinutes >= _config.CurrentValue.ExpirationTimeMinutes).ToList();
             
-            codes.RemoveAll(expiredCodes.Contains);
+                codes.RemoveAll(expiredCodes.Contains);
             
-            await _adminCodesRepository.SaveAsync(codes, stoppingToken);
+                await _adminCodesRepository.SaveAsync(codes, stoppingToken);
             
-            await Task.Delay(TimeSpan.FromMinutes(_config.CurrentValue.RefreshingTimeMinutes), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(_config.CurrentValue.RefreshingTimeMinutes), stoppingToken);
+            }
+            catch(OperationCanceledException e) { }
         }
     }
 }
